@@ -3,6 +3,7 @@ import type { Mesh } from "three";
 import { Html } from "@react-three/drei";
 import type { LayerConfig } from "@/lib/phoneConfig";
 import { DEVICE, EXPLODE_GAP } from "@/lib/phoneConfig";
+import LayerDetail from "./LayerDetail";
 
 type LayerProps = {
   layer: LayerConfig;
@@ -48,6 +49,8 @@ export default function Layer({ layer, explode, activeLayer, onActivate }: Layer
           opacity={explode > 0.02 ? Math.min(1, 0.35 + explode * 0.75) : 1}
         />
       </mesh>
+
+      {explode > 0.1 && <LayerDetail id={layer.id} width={width} height={height} />}
 
       {isActive && explode > 0.08 && (
         <Html distanceFactor={7} position={[width / 2 + 0.18, 0, 0]} occlude={false} zIndexRange={[20, 0]}>

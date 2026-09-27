@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Vector3 } from "three";
-import { CAMERA_PATH } from "@/lib/phoneConfig";
-import { lerpVec3 } from "./math";
+import { CAMERA_PATH, TIMELINE } from "@/lib/phoneConfig";
+import { lerpVec3, remap } from "./math";
 
 type CameraRigProps = {
   progress: number;
@@ -27,7 +27,7 @@ function sampleCameraPath(progress: number) {
 }
 
 export default function CameraRig({ progress, pointer }: CameraRigProps) {
-  const { camera } = useThree();
+  const { camera, size } = useThree();
   const target = useRef(new Vector3(0, 0, 0));
 
   useFrame(() => {
@@ -35,9 +35,22 @@ export default function CameraRig({ progress, pointer }: CameraRigProps) {
     const parallaxX = pointer.x * 0.22;
     const parallaxY = -pointer.y * 0.14;
 
-    camera.position.x += (sample.position[0] + parallaxX - camera.position.x) * 0.06;
-    camera.position.y += (sample.position[1] + parallaxY - camera.position.y) * 0.06;
-    camera.position.z += (sample.position[2] - camera.position.z) * 0.08;
+    // Portrait/mobile viewports are much narrower than the desktop framing
+    // this path was tuned for; back the camera off proportionally so the
+    // device keeps comfortable margin instead of filling/cropping the frame.
+    const aspect = size.width / size.height;
+    const portraitScale = aspect < 1 ? Math.min(1 / aspect, 1.85) : 1;
+
+    // During the explosion beats, tilt into a 3/4 view (like an exploded
+    // engineering diagram) instead of a flat head-on stack.
+    const explode = Math.max(0, remap(progress, TIMELINE.explodeIn.start, TIMELINE.explodeIn.end) - remap(progress, TIMELINE.reassembly.start, TIMELINE.reassembly.end));
+    const tiltX = sample.position[0] * portraitScale + parallaxX + explode * 0.55;
+    const tiltY = sample.position[1] * portraitScale + parallaxY + explode * 0.32;
+    const tiltZ = sample.position[2] * portraitScale;
+
+    camera.position.x += (tiltX - camera.position.x) * 0.06;
+    camera.position.y += (tiltY - camera.position.y) * 0.06;
+    camera.position.z += (tiltZ - camera.position.z) * 0.08;
 
     if ("fov" in camera) {
       const cam = camera as unknown as { fov: number; updateProjectionMatrix: () => void };

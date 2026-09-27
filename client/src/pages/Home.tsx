@@ -265,5 +265,5 @@ function CaseStudyModal({ project, onClose }: { project: Project; onClose: () =>
 }
 
 function ExperienceTimeline() {
-  return <div className="experience-list"><div><span>MAR 2026 — PRESENT</span><strong>PHP Developer — Project Consultant</strong><small>EZ Rankings · Noida</small></div><div><span>DEC 2024 — FEB 2026</span><strong>PHP &amp; Web Developer</strong><small>Clay Brains · Delhi</small></div><p>B.Tech, Electronics &amp; Communication Engineering · Bharati Vidyapeeth Deemed University, Pune · 2021–2025</p></div>;
+  return <div className="experience-list"><div><span>MAR 2026 — PRESENT</span><strong>Software Developer - AI &amp; Web Solution</strong><small>EZ Rankings · Noida</small></div><div><span>DEC 2024 — FEB 2026</span><strong>Software Developer</strong><small>Clay Brains · Delhi</small></div><p>B.Tech, Electronics &amp; Communication Engineering · Bharati Vidyapeeth Deemed University, Pune · 2021–2025</p></div>;
 }
