@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -11,6 +12,7 @@ export default function App() {
           <Home />
         </TooltipProvider>
       </ThemeProvider>
+      <Analytics />
     </ErrorBoundary>
   );
 }
