@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import type { CSSProperties, MouseEvent } from "react";
 import { ArrowDown, ArrowUpRight, Moon, Phone, Sun, X } from "lucide-react";
-import NotebookScene from "@/components/NotebookScene";
+import CardScene from "@/components/CardScene";
 import { useCinematicScroll } from "@/hooks/useCinematicScroll";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -108,17 +108,32 @@ const projects: Project[] = [
     stack: ["WordPress", "PHP", "Responsive UX"],
     results: ["Stable production support over an extended engagement", "Improved responsive UX across the site"],
   },
+  {
+    title: "GrowScience Nutrition",
+    category: "AI Chatbot / Customer Support",
+    description: "An AI chatbot integrated on-site to handle product questions and support in real time.",
+    href: "https://growsciencenutrition.com/",
+    stat: "AI chatbot live",
+    challenge: "Customers browsing the storefront needed instant answers on products, ingredients and orders without waiting on email or ticket support.",
+    approach: [
+      "Integrated a hosted AI chatbot widget directly into the live storefront",
+      "Configured responses around product, ingredient and order questions",
+      "Kept the integration lightweight so it didn't affect page performance",
+    ],
+    stack: ["AI Chatbot", "JavaScript", "E-commerce"],
+    results: ["Instant, always-on answers for site visitors", "Reduced load on manual support"],
+  },
 ];
 
 const beats = [
-  { id: "hero", label: "01 / COVER", title: "I build systems,\nnot just screens.", copy: "Mohammad Kazim — AI automation engineer and web & e-commerce developer. Backend · SQL · APIs · Web · AI.", align: "left" },
+  { id: "hero", label: "01 / INTRO", title: "I build systems,\nnot just screens.", copy: "Mohammad Kazim — Software Engineer, Web & AI Solutions. Backend · SQL · APIs · Web · AI.", align: "left" },
   { id: "about", label: "02 / ABOUT", title: "Make the\ninside work.", copy: "I work across backend systems, data, APIs, AI automation, web platforms and deployment — translating messy requirements into dependable releases.", align: "right" },
   { id: "systems", label: "03 / SYSTEMS", title: "Every part\nhas a job.", copy: "The way I work is modular: understand the system, isolate the pressure point, then ship the smallest change that creates the biggest lift.", align: "left" },
   { id: "work", label: "04 / SELECTED WORK", title: "Web is the\nvisible layer.", copy: "The surface should be clear because the system underneath is considered. Explore selected work below.", align: "right" },
   { id: "backend", label: "05 / BACKEND", title: "Backend\nwith intent.", copy: "Python · FastAPI · PostgreSQL · REST APIs · Docker · RabbitMQ · Redis. The infrastructure should feel as deliberate as the interface.", align: "left" },
   { id: "ai", label: "06 / AI / AUTOMATION", title: "Automation\nthat earns trust.", copy: "LLMs · AI agents · n8n · RAG · API automation · prompt engineering. Not a glowing AI brain — useful intelligence, wired into real work.", align: "right" },
   { id: "experience", label: "07 / EXPERIENCE", title: "Built through\nproduction.", copy: "Two-plus years in production across 50+ websites, from client delivery to compromised-site recovery and CMS content automation.", align: "left" },
-  { id: "back-cover", label: "08 / BACK COVER", title: "One useful\nwhole.", copy: "A good system disappears into the work it makes possible. Scroll to the end, then let’s build something useful.", align: "right" },
+  { id: "back-cover", label: "08 / CLOSE", title: "One useful\nwhole.", copy: "A good system disappears into the work it makes possible. Scroll to the end, then let’s build something useful.", align: "right" },
 ];
 
 function clamp(value: number) {
@@ -147,7 +162,7 @@ export default function Home() {
       <div className="cinematic-grain" aria-hidden="true" />
       <header className="cinematic-nav">
         <button className="nav-mark" onClick={() => scrollToId("top")} aria-label="Back to top">MK<span>®</span></button>
-        <div className="nav-meta"><span>AI Automation Engineer</span><span className="nav-divider" /><span>Delhi NCR / India</span></div>
+        <div className="nav-meta"><span>Software Engineer - Web &amp; AI Solutions</span><span className="nav-divider" /><span>Delhi NCR / India</span></div>
         <div className="nav-actions">
           {toggleTheme && (
             <button className="nav-theme-toggle" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}>
@@ -159,7 +174,7 @@ export default function Home() {
       </header>
 
       <section className="cinema" id="cinema-track" ref={cinemaRef} style={{ "--story-progress": progress } as CSSProperties}>
-        <div className="scene-sticky"><NotebookScene progress={progress} pointer={pointer} /></div>
+        <div className="scene-sticky"><CardScene progress={progress} pointer={pointer} /></div>
         <div className="story-track">
           {beats.map((beat) => (
             <article className={`story-beat story-${beat.align}`} id={beat.id} key={beat.id}>
@@ -167,7 +182,7 @@ export default function Home() {
                 <p className="story-label"><span>{beat.label}</span><i /></p>
                 <h1>{beat.title.split("\n").map((line, index) => <span key={line}>{line}{index === 0 ? <br /> : null}</span>)}</h1>
                 <p className="story-description">{beat.copy}</p>
-                {beat.id === "hero" && <button className="story-cta" onClick={() => scrollToId("about")}>Turn the first page <ArrowDown size={15} /></button>}
+                {beat.id === "hero" && <button className="story-cta" onClick={() => scrollToId("about")}>Explore the work <ArrowDown size={15} /></button>}
                 {beat.id === "work" && <ProjectLensList />}
                 {beat.id === "experience" && <ExperienceTimeline />}
               </div>
@@ -177,7 +192,7 @@ export default function Home() {
       </section>
 
       <section className="device-specs" id="work-summary">
-        <div className="specs-header"><p className="eyebrow-light">The useful parts</p><span>7 pages / 06 projects</span></div>
+        <div className="specs-header"><p className="eyebrow-light">The useful parts</p><span>8 cards / 07 projects</span></div>
         <div className="specs-grid">
           <div><h2>Physical thinking<br /><em>for digital work.</em></h2></div>
           <div className="specs-copy"><p>Whether it is a Shopify storefront, a Laravel CMS, a pricing engine or an automation layer, the job is the same: understand how the parts depend on each other, then make the whole thing easier to use.</p><div className="spec-tags">{["PHP / Laravel", "WordPress", "Shopify", "WooCommerce", "MySQL", "REST APIs", "Python", "FastAPI", "AI Automation"].map((tag) => <span key={tag}>{tag}</span>)}</div></div>
@@ -188,7 +203,7 @@ export default function Home() {
         <p className="story-label"><span>09 / FINAL FRAME</span><i /></p>
         <h2>Let’s build<br /><em>something useful.</em></h2>
         <div className="contact-actions"><a href="mailto:mohammadkazim71@gmail.com">mohammadkazim71@gmail.com <ArrowUpRight size={17} /></a><a href="https://linkedin.com/in/mohammadkazim71" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={15} /></a><a href="https://github.com/Kazim71" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={15} /></a><a href="tel:+917898184847">+91 78981 84847 <Phone size={14} /></a></div>
-        <div className="contact-footer"><span>Mohammad Kazim / AI Automation Engineer</span><span>Delhi NCR, India · Working worldwide</span></div>
+        <div className="contact-footer"><span>Mohammad Kazim / Software Engineer - Web &amp; AI Solutions</span><span>Delhi NCR, India · Working worldwide</span></div>
       </section>
     </main>
   );
