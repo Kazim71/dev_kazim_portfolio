@@ -50,10 +50,10 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--lime); outline-
 .scene-3d[data-theme="light"] .scene-3d-grid { opacity: .12; }
 .scene-3d[data-theme="light"] .scene-3d-light { background: radial-gradient(circle, rgba(121, 166, 187, .16), transparent 67%); }
 
-/* --- nav theme toggle --- */
-.nav-actions { display: flex; align-items: center; gap: 18px; }
-.nav-theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border: 1px solid var(--line); border-radius: 999px; color: var(--paper); background: transparent; transition: border-color .2s var(--ease), color .2s var(--ease); }
-.nav-theme-toggle:hover { border-color: var(--lime); color: var(--lime); }
+/* --- floating WhatsApp button --- */
+.whatsapp-fab { position: fixed; z-index: 45; right: 22px; bottom: 22px; display: flex; align-items: center; justify-content: center; width: 54px; height: 54px; border-radius: 999px; background: #25d366; color: #08090a; box-shadow: 0 10px 25px rgba(0,0,0,.4); transition: transform .2s var(--ease); }
+.whatsapp-fab:hover { transform: scale(1.08); }
+@media (max-width: 760px) { .whatsapp-fab { right: 16px; bottom: 16px; width: 48px; height: 48px; } .whatsapp-fab svg { width: 22px; height: 22px; } }
 
 /* --- case study modal --- */
 .case-study-overlay { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(8,9,10,.78); backdrop-filter: blur(6px); animation: case-study-fade .18s var(--ease); }

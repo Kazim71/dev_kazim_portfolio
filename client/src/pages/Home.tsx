@@ -1,15 +1,15 @@
 import { useRef, useState } from "react";
 import type { CSSProperties, MouseEvent } from "react";
-import { ArrowDown, ArrowUpRight, Moon, Phone, Sun, X } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Phone, X } from "lucide-react";
 import CardScene from "@/components/CardScene";
 import { useCinematicScroll } from "@/hooks/useCinematicScroll";
-import { useTheme } from "@/contexts/ThemeContext";
 
 type Project = {
   title: string;
   category: string;
   description: string;
   href: string;
+  image: string;
   challenge: string;
   approach: string[];
   stack: string[];
@@ -22,6 +22,7 @@ const projects: Project[] = [
     category: "Pricing engine / WordPress",
     description: "A database-driven engine spanning 472 cities and 2,700+ rates.",
     href: "https://airportlimolink.ca/",
+    image: "/project-images/airport-limo.jpg",
     challenge: "A quote form for airport transfers needed to price 472 cities and 2,700+ rate combinations without shipping a bloated client bundle or slow page loads.",
     approach: [
       "Moved rate lookups server-side into a structured MySQL schema instead of client-side JS tables",
@@ -36,6 +37,7 @@ const projects: Project[] = [
     category: "Custom CMS / Laravel",
     description: "A structured Laravel CMS replacing a legacy WordPress content model.",
     href: "https://www.dpmiindia.com/",
+    image: "/project-images/dpmi-india.jpg",
     challenge: "Legacy WordPress content had outgrown its data model — editors needed structured, relational content that a generic CMS couldn't express cleanly.",
     approach: [
       "Designed a purpose-built Laravel content model matching the real editorial structure",
@@ -50,6 +52,7 @@ const projects: Project[] = [
     category: "E-commerce / Shopify",
     description: "A 500+ product storefront refined across catalog, product and checkout flows.",
     href: "https://aaravelectronics.com/",
+    image: "/project-images/aarav-electronics.jpg",
     challenge: "A 500+ SKU electronics storefront had slow catalog and product pages that were costing conversions.",
     approach: [
       "Audited theme + app bloat across catalog, product and checkout templates",
@@ -64,6 +67,7 @@ const projects: Project[] = [
     category: "Furniture e-commerce / WordPress",
     description: "ACF content sections and WooCommerce customizations across hundreds of pages.",
     href: "https://spacesbyu.com/",
+    image: "/project-images/spaces-by-u.jpg",
     challenge: "Hundreds of furniture product and category pages needed consistent, editable content sections without a rebuild.",
     approach: [
       "Built reusable ACF field groups and flexible content blocks",
@@ -78,6 +82,7 @@ const projects: Project[] = [
     category: "Local services / WordPress",
     description: "13 services, 63 Dubai neighborhoods and reusable pricing content.",
     href: "https://radiantlaundry.ae/",
+    image: "/project-images/radiant-laundry.jpg",
     challenge: "A 50+ year old local laundry business needed a location- and service-aware site covering 63 Dubai neighborhoods without duplicating content by hand.",
     approach: [
       "Modeled services and neighborhoods as reusable, structured content types",
@@ -92,6 +97,7 @@ const projects: Project[] = [
     category: "Care services / WordPress",
     description: "Production maintenance across frontend, forms, content, media and responsive UX.",
     href: "https://blossomageanddisability.com.au/",
+    image: "/project-images/blossom-care.jpg",
     challenge: "An Australian care-services site needed ongoing production support — frontend fixes, forms, content and media — without disrupting a live, in-use site.",
     approach: [
       "Handled frontend, forms and media updates as an ongoing production workload",
@@ -106,6 +112,7 @@ const projects: Project[] = [
     category: "AI Chatbot / Customer Support",
     description: "An AI chatbot integrated on-site to handle product questions and support in real time.",
     href: "https://growsciencenutrition.com/",
+    image: "/project-images/growscience-nutrition.jpg",
     challenge: "Customers browsing the storefront needed instant answers on products, ingredients and orders without waiting on email or ticket support.",
     approach: [
       "Integrated a hosted AI chatbot widget directly into the live storefront",
@@ -140,7 +147,6 @@ export default function Home() {
   const cinemaRef = useRef<HTMLElement>(null);
   const progress = useCinematicScroll(cinemaRef);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
-  const { theme, toggleTheme } = useTheme();
 
   const handlePointer = (event: MouseEvent<HTMLDivElement>) => {
     setPointer({
@@ -155,14 +161,6 @@ export default function Home() {
       <header className="cinematic-nav">
         <button className="nav-mark" onClick={() => scrollToId("top")} aria-label="Back to top">MK<span>®</span></button>
         <div className="nav-meta"><span>Software Engineer - Web &amp; AI Solutions</span><span className="nav-divider" /><span>Delhi NCR / India</span></div>
-        <div className="nav-actions">
-          {toggleTheme && (
-            <button className="nav-theme-toggle" onClick={toggleTheme} aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}>
-              {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
-            </button>
-          )}
-          <button className="nav-scroll" onClick={() => scrollToId("cinema-track")}>Scroll to explore <ArrowDown size={14} /></button>
-        </div>
       </header>
 
       <section className="cinema" id="cinema-track" ref={cinemaRef} style={{ "--story-progress": progress } as CSSProperties}>
@@ -187,7 +185,7 @@ export default function Home() {
         <div className="specs-header"><p className="eyebrow-light">The useful parts</p><span>8 cards / 07 projects</span></div>
         <div className="specs-grid">
           <div><h2>Physical thinking<br /><em>for digital work.</em></h2></div>
-          <div className="specs-copy"><p>Whether it is a Shopify storefront, a Laravel CMS, a pricing engine or an automation layer, the job is the same: understand how the parts depend on each other, then make the whole thing easier to use.</p><div className="spec-tags">{["PHP / Laravel", "WordPress", "Shopify", "WooCommerce", "MySQL", "REST APIs", "Python", "FastAPI", "AI Automation"].map((tag) => <span key={tag}>{tag}</span>)}</div></div>
+          <div className="specs-copy"><p>Whether it is a Shopify storefront, a Laravel CMS, a pricing engine or an automation layer, the job is the same: understand how the parts depend on each other, then make the whole thing easier to use.</p><div className="spec-tags">{["PHP / Laravel", "WordPress", "Shopify", "WooCommerce", "MySQL", "REST APIs", "Python", "FastAPI", "AI Chatbots", "LLM Integration", "n8n Automation"].map((tag) => <span key={tag}>{tag}</span>)}</div></div>
         </div>
       </section>
 
@@ -197,6 +195,19 @@ export default function Home() {
         <div className="contact-actions"><a href="mailto:mohammadkazim71@gmail.com">mohammadkazim71@gmail.com <ArrowUpRight size={17} /></a><a href="https://linkedin.com/in/mohammadkazim71" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={15} /></a><a href="https://github.com/Kazim71" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={15} /></a><a href="tel:+917898184847">+91 78981 84847 <Phone size={14} /></a></div>
         <div className="contact-footer"><span>Mohammad Kazim / Software Engineer - Web &amp; AI Solutions</span><span>Delhi NCR, India · Working worldwide</span></div>
       </section>
+
+      <a
+        className="whatsapp-fab"
+        href="https://wa.me/917898184847"
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Chat on WhatsApp"
+      >
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true">
+          <path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.8.9-.9 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.2 3.4 5.4 4.7.7.3 1.3.5 1.8.7.8.2 1.4.2 2 .1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.5-.3z" />
+          <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.6 1.4 5.1L2 22l5.1-1.3C8.6 21.5 10.3 22 12 22c5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.1l-.3-.2-3.2.8.8-3.1-.2-.3C3.4 15 3 13.5 3 12 3 7.1 7.1 3 12 3s9 4.1 9 9-4.1 9-9 9z" />
+        </svg>
+      </a>
     </main>
   );
 }
@@ -220,14 +231,20 @@ function ProjectLensList() {
 }
 
 function CaseStudyModal({ project, onClose }: { project: Project; onClose: () => void }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
   return (
     <div className="case-study-overlay" onClick={onClose}>
       <article className="case-study-modal" onClick={(event) => event.stopPropagation()}>
         <button className="case-study-close" onClick={onClose} aria-label="Close case study"><X size={16} /></button>
         <div className="case-study-media">
-          <div className="case-study-media-fallback" aria-hidden="true">
-            <span>{project.title.charAt(0)}</span>
-          </div>
+          {imageFailed ? (
+            <div className="case-study-media-fallback" aria-hidden="true">
+              <span>{project.title.charAt(0)}</span>
+            </div>
+          ) : (
+            <img src={project.image} alt={`${project.title} preview`} onError={() => setImageFailed(true)} />
+          )}
         </div>
         <div className="case-study-body">
           <p className="story-label"><span>{project.category}</span><i /></p>
