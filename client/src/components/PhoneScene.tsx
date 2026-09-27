@@ -60,7 +60,6 @@ export default function PhoneScene({ progress, pointer }: PhoneSceneProps) {
 
       {showScreen && (
         <div className="phone-screen-overlay" style={{ opacity: Math.min(1, (progress - TIMELINE.displayFocus.start) / 0.06) }}>
-          <img src={screen.image} alt={`${screen.title} project preview`} />
           <div className="screen-overlay"><span>{screen.title}</span><strong>{screen.stat}</strong></div>
         </div>
       )}
