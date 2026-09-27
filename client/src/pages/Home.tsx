@@ -10,7 +10,6 @@ type Project = {
   category: string;
   description: string;
   href: string;
-  stat: string;
   challenge: string;
   approach: string[];
   stack: string[];
@@ -23,7 +22,6 @@ const projects: Project[] = [
     category: "Pricing engine / WordPress",
     description: "A database-driven engine spanning 472 cities and 2,700+ rates.",
     href: "https://airportlimolink.ca/",
-    stat: "−73% frontend JS",
     challenge: "A quote form for airport transfers needed to price 472 cities and 2,700+ rate combinations without shipping a bloated client bundle or slow page loads.",
     approach: [
       "Moved rate lookups server-side into a structured MySQL schema instead of client-side JS tables",
@@ -38,7 +36,6 @@ const projects: Project[] = [
     category: "Custom CMS / Laravel",
     description: "A structured Laravel CMS replacing a legacy WordPress content model.",
     href: "https://www.dpmiindia.com/",
-    stat: "422 posts migrated",
     challenge: "Legacy WordPress content had outgrown its data model — editors needed structured, relational content that a generic CMS couldn't express cleanly.",
     approach: [
       "Designed a purpose-built Laravel content model matching the real editorial structure",
@@ -53,7 +50,6 @@ const projects: Project[] = [
     category: "E-commerce / Shopify",
     description: "A 500+ product storefront refined across catalog, product and checkout flows.",
     href: "https://aaravelectronics.com/",
-    stat: "~1.5s faster",
     challenge: "A 500+ SKU electronics storefront had slow catalog and product pages that were costing conversions.",
     approach: [
       "Audited theme + app bloat across catalog, product and checkout templates",
@@ -68,7 +64,6 @@ const projects: Project[] = [
     category: "Furniture e-commerce / WordPress",
     description: "ACF content sections and WooCommerce customizations across hundreds of pages.",
     href: "https://spacesbyu.com/",
-    stat: "SEO uplift",
     challenge: "Hundreds of furniture product and category pages needed consistent, editable content sections without a rebuild.",
     approach: [
       "Built reusable ACF field groups and flexible content blocks",
@@ -83,7 +78,6 @@ const projects: Project[] = [
     category: "Local services / WordPress",
     description: "13 services, 63 Dubai neighborhoods and reusable pricing content.",
     href: "https://radiantlaundry.ae/",
-    stat: "Since 1971",
     challenge: "A 50+ year old local laundry business needed a location- and service-aware site covering 63 Dubai neighborhoods without duplicating content by hand.",
     approach: [
       "Modeled services and neighborhoods as reusable, structured content types",
@@ -98,7 +92,6 @@ const projects: Project[] = [
     category: "Care services / WordPress",
     description: "Production maintenance across frontend, forms, content, media and responsive UX.",
     href: "https://blossomageanddisability.com.au/",
-    stat: "Production support",
     challenge: "An Australian care-services site needed ongoing production support — frontend fixes, forms, content and media — without disrupting a live, in-use site.",
     approach: [
       "Handled frontend, forms and media updates as an ongoing production workload",
@@ -113,7 +106,6 @@ const projects: Project[] = [
     category: "AI Chatbot / Customer Support",
     description: "An AI chatbot integrated on-site to handle product questions and support in real time.",
     href: "https://growsciencenutrition.com/",
-    stat: "AI chatbot live",
     challenge: "Customers browsing the storefront needed instant answers on products, ingredients and orders without waiting on email or ticket support.",
     approach: [
       "Integrated a hosted AI chatbot widget directly into the live storefront",
@@ -219,7 +211,6 @@ function ProjectLensList() {
           <button className="lens-row" onClick={() => setOpenProject(project)} key={project.title}>
             <span className="lens-number">0{index + 1}</span>
             <span><strong>{project.title}</strong><small>{project.category}</small></span>
-            <span className="lens-stat">{project.stat}</span>
           </button>
         ))}
       </div>
