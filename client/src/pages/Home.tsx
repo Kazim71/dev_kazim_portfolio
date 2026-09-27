@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUpRight, Phone, X } from "lucide-react";
 import { DraggableCardBody, DraggableCardContainer } from "@/components/ui/draggable-card";
 import { CometCard } from "@/components/ui/comet-card";
 import { Globe3D, type GlobeMarker } from "@/components/ui/3d-globe";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
 const MARKER_DOT =
   "data:image/svg+xml;utf8," +
@@ -276,7 +277,16 @@ export default function Home() {
         <div className="specs-header"><p className="eyebrow-light">The useful parts</p><span>8 cards / 12 projects</span></div>
         <div className="specs-grid">
           <div><h2>Physical thinking<br /><em>for digital work.</em></h2></div>
-          <div className="specs-copy"><p>Whether it is a Shopify storefront, a Laravel CMS, a pricing engine or an automation layer, the job is the same: understand how the parts depend on each other, then make the whole thing easier to use.</p><div className="spec-tags">{["PHP / Laravel", "WordPress", "Shopify", "WooCommerce", "MySQL", "REST APIs", "Python", "FastAPI", "AI Chatbots", "LLM Integration", "n8n Automation"].map((tag) => <span key={tag}>{tag}</span>)}</div></div>
+          <CardContainer className="w-full" containerClassName="py-0">
+            <CardBody className="h-auto w-auto specs-3d-card">
+              <CardItem translateZ={40} as="p" className="w-full specs-3d-copy">
+                Whether it is a Shopify storefront, a Laravel CMS, a pricing engine or an automation layer, the job is the same: understand how the parts depend on each other, then make the whole thing easier to use.
+              </CardItem>
+              <CardItem translateZ={60} className="w-full spec-tags">
+                {["PHP / Laravel", "WordPress", "Shopify", "WooCommerce", "MySQL", "REST APIs", "Python", "FastAPI", "AI Chatbots", "LLM Integration", "n8n Automation"].map((tag) => <span key={tag}>{tag}</span>)}
+              </CardItem>
+            </CardBody>
+          </CardContainer>
         </div>
       </section>
 
