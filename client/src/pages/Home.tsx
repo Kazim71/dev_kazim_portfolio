@@ -1,8 +1,40 @@
-import { useRef, useState } from "react";
-import type { CSSProperties, MouseEvent } from "react";
+import { useState } from "react";
 import { ArrowDown, ArrowUpRight, Phone, X } from "lucide-react";
-import CardScene from "@/components/CardScene";
-import { useCinematicScroll } from "@/hooks/useCinematicScroll";
+import { DraggableCardBody, DraggableCardContainer } from "@/components/ui/draggable-card";
+import { CometCard } from "@/components/ui/comet-card";
+import { Globe3D, type GlobeMarker } from "@/components/ui/3d-globe";
+
+const MARKER_DOT =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><circle cx="16" cy="16" r="9" fill="#d7f53c" stroke="#08090a" stroke-width="3"/></svg>`,
+  );
+
+const globeMarkers: GlobeMarker[] = [
+  { lat: 28.6139, lng: 77.209, src: MARKER_DOT, label: "Delhi NCR — Home base" },
+  { lat: 43.6532, lng: -79.3832, src: MARKER_DOT, label: "Toronto — Airport Limo Link" },
+  { lat: 25.2048, lng: 55.2708, src: MARKER_DOT, label: "Dubai — Radiant Laundry, FlyOn Travel" },
+  { lat: -34.9285, lng: 138.6007, src: MARKER_DOT, label: "Adelaide — Blossom Age & Disability" },
+  { lat: 51.5074, lng: -0.1278, src: MARKER_DOT, label: "United Kingdom — Zentra Labs, Shapins Clinic, Éllanno" },
+];
+
+function WorldGlobe() {
+  return (
+    <div className="contact-globe" aria-label="Map of client locations worldwide">
+      <Globe3D
+        markers={globeMarkers}
+        config={{
+          atmosphereColor: "#d7f53c",
+          atmosphereIntensity: 12,
+          bumpScale: 4,
+          autoRotateSpeed: 0.4,
+          enableZoom: false,
+          enablePan: false,
+        }}
+      />
+    </div>
+  );
+}
 
 type Project = {
   title: string;
@@ -122,6 +154,81 @@ const projects: Project[] = [
     stack: ["AI Chatbot", "JavaScript", "E-commerce"],
     results: ["Instant, always-on answers for site visitors", "Reduced load on manual support"],
   },
+  {
+    title: "Shapins Clinic",
+    category: "Beauty & Skincare / WooCommerce",
+    description: "A multi-location skincare clinic storefront built end-to-end, from design to WooCommerce build.",
+    href: "https://shapinsclinic.com/",
+    image: "/project-images/shapins-clinic.jpg",
+    challenge: "A UK skincare and beauty clinic needed a WooCommerce site to sell treatment offers and vouchers across multiple locations, with a premium editorial feel rather than a generic storefront look.",
+    approach: [
+      "Designed and built the WooCommerce storefront end-to-end",
+      "Structured treatments, offers and clinic locations as manageable content",
+      "Styled the site around the clinic's premium beauty branding",
+    ],
+    stack: ["WordPress", "WooCommerce", "PHP"],
+    results: ["Multi-location offers and treatments managed from one storefront", "Premium editorial design matching the beauty brand"],
+  },
+  {
+    title: "Zentra Labs",
+    category: "Research Peptides / WooCommerce",
+    description: "A UK research-peptide supplier storefront with batch-verified product listings, designed and built end-to-end.",
+    href: "https://zentralabs.co.uk/",
+    image: "/project-images/zentra-labs.jpg",
+    challenge: "A research chemical supplier needed a technical, trustworthy WooCommerce storefront that could clearly present purity, batch and certificate-of-analysis data alongside the product catalog.",
+    approach: [
+      "Designed and built the WooCommerce catalog end-to-end",
+      "Structured product pages to surface purity, COA and batch data clearly",
+      "Built a technical, lab-grade visual identity suited to the audience",
+    ],
+    stack: ["WordPress", "WooCommerce", "PHP"],
+    results: ["Clear, trust-building product presentation for a technical audience", "A catalog structure ready to scale with new products"],
+  },
+  {
+    title: "OxygenAuto",
+    category: "Car Dealer / Lead Generation",
+    description: "An end-of-life vehicle scrapping platform with an instant quote form, designed and built end-to-end.",
+    href: "https://oxygenauto.in/",
+    image: "/project-images/oxygen-auto.jpg",
+    challenge: "India's end-of-life vehicle scrapping process needed a simple, trustworthy front end that could capture leads and walk first-time users through an unfamiliar process.",
+    approach: [
+      "Designed and built the site end-to-end",
+      "Built the instant-quote lead-capture form and vehicle details flow",
+      "Structured the site around a clear four-step process: price, inspection, pickup, payment",
+    ],
+    stack: ["Web Development", "Lead Generation", "UI/UX"],
+    results: ["A clear, guided lead-capture flow for vehicle scrapping", "A simple process explanation that builds trust with first-time users"],
+  },
+  {
+    title: "Éllanno",
+    category: "Apparel / WooCommerce",
+    description: "An editorial knitwear brand storefront built around sourcing story and product quality, end-to-end.",
+    href: "https://ellanno.com/",
+    image: "/project-images/ellanno.jpg",
+    challenge: "A premium knitwear brand needed a WooCommerce site with an editorial feel that told its sourcing and craft story alongside the product catalog, not just a standard shop template.",
+    approach: [
+      "Designed and built the WooCommerce storefront end-to-end",
+      "Built out editorial sections for sourcing, materials and care",
+      "Kept the visual language quiet and premium to match the brand",
+    ],
+    stack: ["WordPress", "WooCommerce", "PHP"],
+    results: ["An editorial storefront that reads as a brand story, not just a catalog", "A consistent premium visual identity across product and content pages"],
+  },
+  {
+    title: "FlyOn Travel & Tourism",
+    category: "Travel Agency",
+    description: "A UAE travel agency site for visa services and curated tour packages, designed and built end-to-end.",
+    href: "https://flyontravel.ae/",
+    image: "/project-images/flyon-travel.jpg",
+    challenge: "A Dubai-based travel agency needed a site to present visa services and tour packages clearly, with FAQs and reviews to build trust with travelers booking online.",
+    approach: [
+      "Designed and built the site end-to-end",
+      "Structured visa services and tour packages as browsable catalogs",
+      "Added FAQ and review sections to support the booking decision",
+    ],
+    stack: ["Web Development", "UI/UX", "WordPress"],
+    results: ["Clear presentation of visa and tour offerings", "FAQ and review sections that support customer trust"],
+  },
 ];
 
 const beats = [
@@ -135,45 +242,29 @@ const beats = [
   { id: "back-cover", label: "08 / CLOSE", title: "One useful\nwhole.", copy: "A good system disappears into the work it makes possible. Scroll to the end, then let’s build something useful.", align: "right" },
 ];
 
-function clamp(value: number) {
-  return Math.min(1, Math.max(0, value));
-}
-
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 export default function Home() {
-  const cinemaRef = useRef<HTMLElement>(null);
-  const progress = useCinematicScroll(cinemaRef);
-  const [pointer, setPointer] = useState({ x: 0, y: 0 });
-
-  const handlePointer = (event: MouseEvent<HTMLDivElement>) => {
-    setPointer({
-      x: ((event.clientX / window.innerWidth) - 0.5) * 2,
-      y: ((event.clientY / window.innerHeight) - 0.5) * 2,
-    });
-  };
-
   return (
-    <main className="cinematic-site" onMouseMove={handlePointer}>
+    <main className="cinematic-site">
       <div className="cinematic-grain" aria-hidden="true" />
       <header className="cinematic-nav">
         <button className="nav-mark" onClick={() => scrollToId("top")} aria-label="Back to top">MK<span>®</span></button>
         <div className="nav-meta"><span>Software Engineer - Web &amp; AI Solutions</span><span className="nav-divider" /><span>Delhi NCR / India</span></div>
       </header>
 
-      <section className="cinema" id="cinema-track" ref={cinemaRef} style={{ "--story-progress": progress } as CSSProperties}>
-        <div className="scene-sticky"><CardScene progress={progress} pointer={pointer} /></div>
+      <section className="cinema" id="cinema-track">
         <div className="story-track">
           {beats.map((beat) => (
-            <article className={`story-beat story-${beat.align}`} id={beat.id} key={beat.id}>
+            <article className={`story-beat story-${beat.align}${beat.id === "work" ? " story-wide" : ""}`} id={beat.id} key={beat.id}>
               <div className="story-copy">
                 <p className="story-label"><span>{beat.label}</span><i /></p>
                 <h1>{beat.title.split("\n").map((line, index) => <span key={line}>{line}{index === 0 ? <br /> : null}</span>)}</h1>
                 <p className="story-description">{beat.copy}</p>
                 {beat.id === "hero" && <button className="story-cta" onClick={() => scrollToId("about")}>Explore the work <ArrowDown size={15} /></button>}
-                {beat.id === "work" && <ProjectLensList />}
+                {beat.id === "work" && <ProjectDeck />}
                 {beat.id === "experience" && <ExperienceTimeline />}
               </div>
             </article>
@@ -182,7 +273,7 @@ export default function Home() {
       </section>
 
       <section className="device-specs" id="work-summary">
-        <div className="specs-header"><p className="eyebrow-light">The useful parts</p><span>8 cards / 07 projects</span></div>
+        <div className="specs-header"><p className="eyebrow-light">The useful parts</p><span>8 cards / 12 projects</span></div>
         <div className="specs-grid">
           <div><h2>Physical thinking<br /><em>for digital work.</em></h2></div>
           <div className="specs-copy"><p>Whether it is a Shopify storefront, a Laravel CMS, a pricing engine or an automation layer, the job is the same: understand how the parts depend on each other, then make the whole thing easier to use.</p><div className="spec-tags">{["PHP / Laravel", "WordPress", "Shopify", "WooCommerce", "MySQL", "REST APIs", "Python", "FastAPI", "AI Chatbots", "LLM Integration", "n8n Automation"].map((tag) => <span key={tag}>{tag}</span>)}</div></div>
@@ -191,8 +282,13 @@ export default function Home() {
 
       <section className="contact-frame" id="contact">
         <p className="story-label"><span>09 / FINAL FRAME</span><i /></p>
-        <h2>Let’s build<br /><em>something useful.</em></h2>
-        <div className="contact-actions"><a href="mailto:mohammadkazim71@gmail.com">mohammadkazim71@gmail.com <ArrowUpRight size={17} /></a><a href="https://linkedin.com/in/mohammadkazim71" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={15} /></a><a href="https://github.com/Kazim71" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={15} /></a><a href="tel:+917898184847">+91 78981 84847 <Phone size={14} /></a></div>
+        <div className="contact-grid">
+          <div>
+            <h2>Let’s build<br /><em>something useful.</em></h2>
+            <div className="contact-actions"><a href="mailto:mohammadkazim71@gmail.com">mohammadkazim71@gmail.com <ArrowUpRight size={17} /></a><a href="https://linkedin.com/in/mohammadkazim71" target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight size={15} /></a><a href="https://github.com/Kazim71" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={15} /></a><a href="tel:+917898184847">+91 78981 84847 <Phone size={14} /></a></div>
+          </div>
+          <WorldGlobe />
+        </div>
         <div className="contact-footer"><span>Mohammad Kazim / Software Engineer - Web &amp; AI Solutions</span><span>Delhi NCR, India · Working worldwide</span></div>
       </section>
 
@@ -212,19 +308,41 @@ export default function Home() {
   );
 }
 
-function ProjectLensList() {
+const deckLayout = [
+  "absolute top-0 left-[2%] rotate-[-6deg]",
+  "absolute top-10 left-[19%] rotate-[4deg]",
+  "absolute top-2 left-[36%] rotate-[-3deg]",
+  "absolute top-16 left-[53%] rotate-[7deg]",
+  "absolute top-4 left-[70%] rotate-[-5deg]",
+  "absolute top-[300px] left-[10%] rotate-[5deg]",
+  "absolute top-[330px] left-[27%] rotate-[-7deg]",
+  "absolute top-[300px] left-[44%] rotate-[3deg]",
+  "absolute top-[340px] left-[61%] rotate-[-4deg]",
+  "absolute top-[310px] left-[78%] rotate-[6deg]",
+  "absolute top-[600px] left-[20%] rotate-[-5deg]",
+  "absolute top-[610px] left-[50%] rotate-[4deg]",
+];
+
+function ProjectDeck() {
   const [openProject, setOpenProject] = useState<Project | null>(null);
 
   return (
     <>
-      <div className="lens-list">
+      <DraggableCardContainer className="project-deck">
         {projects.map((project, index) => (
-          <button className="lens-row" onClick={() => setOpenProject(project)} key={project.title}>
-            <span className="lens-number">0{index + 1}</span>
-            <span><strong>{project.title}</strong><small>{project.category}</small></span>
-          </button>
+          <DraggableCardBody key={project.title} className={`project-card ${deckLayout[index % deckLayout.length]}`}>
+            <CometCard className="w-full">
+              <button type="button" className="project-card-face" onClick={() => setOpenProject(project)}>
+                <img src={project.image} alt={`${project.title} preview`} loading="lazy" />
+                <div className="project-card-meta">
+                  <strong>{project.title}</strong>
+                  <small>{project.category}</small>
+                </div>
+              </button>
+            </CometCard>
+          </DraggableCardBody>
         ))}
-      </div>
+      </DraggableCardContainer>
       {openProject && <CaseStudyModal project={openProject} onClose={() => setOpenProject(null)} />}
     </>
   );
