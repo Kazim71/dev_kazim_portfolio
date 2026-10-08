@@ -84,11 +84,87 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--lime); outline-
   .project-card-face img { height: 130px; }
 }
 
-/* --- cinematic macro/exploded phone footage backing certain beats --- */
-.beat-video-layer { position: absolute; inset: 0; z-index: 0; }
-.beat-video-layer video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) contrast(1.05); opacity: .8; }
-.beat-video-scrim { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(8,9,10,.92) 0%, rgba(8,9,10,.75) 38%, rgba(8,9,10,.35) 62%, rgba(8,9,10,.15) 100%); }
-.story-has-video.story-right .beat-video-scrim { background: linear-gradient(280deg, rgba(8,9,10,.92) 0%, rgba(8,9,10,.75) 38%, rgba(8,9,10,.35) 62%, rgba(8,9,10,.15) 100%); }
+
+/* --- motion study: "I build systems, not just screens." --- */
+.motion-study { position: relative; padding: 110px clamp(22px, 8vw, 140px) 120px; border-top: 1px solid var(--line); background: var(--black); }
+.motion-study-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 30px; }
+.motion-study-head .story-label { margin-bottom: 14px; }
+.motion-study-intro { max-width: 440px; margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+.motion-replay { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--paper); background: transparent; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; transition: border-color .2s var(--ease), color .2s var(--ease); }
+.motion-replay:hover:not(:disabled) { border-color: var(--lime); color: var(--lime); }
+.motion-replay:disabled { opacity: .35; cursor: default; }
+
+.motion-stage { position: relative; aspect-ratio: 16 / 9; min-height: 520px; max-height: 760px; width: 100%; overflow: hidden; border: 1px solid var(--line); background: var(--black-soft); contain: layout paint; }
+.motion-grid { position: absolute; inset: 0; opacity: .5; background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%); -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 80%); }
+.motion-scene { position: absolute; inset: 0 0 64px; display: flex; flex-direction: column; justify-content: center; padding: 40px clamp(22px, 6vw, 80px); will-change: opacity, transform; }
+
+.motion-type { margin: 0; font-size: clamp(46px, 8.4vw, 132px); line-height: .9; letter-spacing: -.07em; font-weight: 500; text-transform: uppercase; color: var(--paper); }
+.motion-type-accent { margin-top: .08em; }
+.motion-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .06em; margin-right: .22em; }
+.motion-mask:last-child { margin-right: 0; }
+.motion-mask > span { display: inline-block; will-change: transform; }
+.motion-serif { color: var(--lime); font-family: var(--serif); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -.04em; }
+.motion-screen-word { position: relative; display: inline-block; }
+.motion-screen-frame { position: absolute; inset: -.08em -.16em -.02em; border: 1px solid var(--lime); border-radius: 6px; pointer-events: none; }
+.motion-screen-frame::before { content: ""; position: absolute; left: 50%; bottom: -14px; width: 34%; height: 1px; background: var(--lime); transform: translateX(-50%); }
+
+.motion-architecture { padding-top: 26px; padding-bottom: 10px; }
+.motion-caption { position: absolute; top: 22px; left: clamp(22px, 6vw, 80px); right: clamp(22px, 6vw, 80px); display: flex; justify-content: space-between; gap: 16px; margin: 0; color: var(--muted); font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .08em; }
+.motion-caption span:first-child { color: var(--lime); }
+.motion-svg { width: 100%; height: 100%; overflow: visible; }
+.motion-edge { fill: none; stroke: rgba(235,233,226,.38); stroke-width: 1.2; }
+.motion-edge-intel { stroke: rgba(215,245,60,.45); }
+.motion-edge-flow { fill: none; stroke: var(--lime); stroke-width: 1.6; stroke-dasharray: 3 17; stroke-linecap: round; }
+.motion-node { fill: var(--black); stroke: rgba(235,233,226,.3); stroke-width: 1; }
+.motion-node-intel { stroke: rgba(215,245,60,.55); }
+.motion-node-dot { fill: var(--lime); }
+.motion-node-label { fill: var(--paper); font-family: var(--sans); font-size: 17px; font-weight: 500; letter-spacing: -.02em; }
+.motion-node-sub { fill: var(--muted); font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .04em; }
+
+.motion-pipeline ol { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 0; padding: 0; list-style: none; }
+.motion-pipeline li { position: relative; display: flex; flex-direction: column; gap: 14px; padding-right: 34px; }
+.motion-pipeline small { color: var(--lime); font-family: var(--mono); font-size: 10px; letter-spacing: .1em; }
+.motion-pipeline strong { font-size: clamp(26px, 3.7vw, 60px); line-height: .9; letter-spacing: -.06em; font-weight: 500; text-transform: uppercase; }
+.motion-pipeline li:last-child strong { color: var(--lime); font-family: var(--serif); font-style: italic; font-weight: 400; text-transform: none; letter-spacing: -.03em; }
+.motion-arrow { position: absolute; right: 10px; bottom: .25em; color: var(--muted); font-family: var(--mono); font-size: 18px; }
+.motion-pipeline-rule { height: 1px; margin-top: 44px; background: var(--lime); transform-origin: left center; }
+
+.motion-signature { align-items: flex-start; }
+.motion-mark { position: relative; display: inline-block; margin-bottom: 28px; padding: 9px 13px; border: 1px solid var(--line); border-radius: 10px; font-weight: 700; font-size: 18px; letter-spacing: -.05em; }
+.motion-mark i { position: absolute; top: -4px; right: -4px; width: 9px; height: 9px; border-radius: 999px; background: var(--lime); }
+.motion-signature h3 { margin: 0; font-size: clamp(46px, 8vw, 128px); line-height: .88; letter-spacing: -.07em; font-weight: 500; text-transform: uppercase; }
+.motion-role { margin: 22px 0 0; color: var(--paper); font-family: var(--mono); font-size: clamp(11px, 1.1vw, 14px); text-transform: uppercase; letter-spacing: .1em; }
+.motion-signoff { margin: 12px 0 0; color: var(--lime); font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .12em; }
+
+.motion-hud { position: absolute; left: 0; right: 0; bottom: 0; height: 64px; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 clamp(22px, 6vw, 80px) 18px; border-top: 1px solid var(--line); background: var(--black-soft); }
+.motion-scenes { display: flex; justify-content: space-between; gap: 10px; margin-bottom: 12px; font-family: var(--mono); font-size: 9px; text-transform: uppercase; letter-spacing: .08em; color: rgba(133,139,138,.55); }
+.motion-scenes span { transition: color .3s var(--ease); white-space: nowrap; }
+.motion-scenes b { margin-right: 6px; font-weight: 400; }
+.motion-scenes .is-done { color: var(--muted); }
+.motion-scenes .is-active { color: var(--lime); }
+.motion-progress { position: relative; height: 1px; background: var(--line); overflow: hidden; }
+.motion-progress i { position: absolute; inset: 0; background: var(--lime); transform: scaleX(0); transform-origin: left center; animation: motion-progress linear forwards; }
+@keyframes motion-progress { to { transform: scaleX(1); } }
+
 @media (max-width: 760px) {
-  .beat-video-scrim { background: linear-gradient(to bottom, rgba(8,9,10,.55) 0%, rgba(8,9,10,.88) 55%, rgba(8,9,10,.97) 100%); }
+  .motion-study { padding: 86px 22px 90px; }
+  .motion-study-head { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .motion-study-intro { font-size: 13px; }
+  .motion-stage { aspect-ratio: auto; height: 640px; min-height: 0; }
+  .motion-grid { background-size: 44px 44px; }
+  .motion-scene { padding: 28px 22px; }
+  .motion-type { font-size: clamp(40px, 13vw, 62px); }
+  .motion-caption { top: 18px; left: 18px; right: 18px; flex-direction: column; gap: 6px; font-size: 9px; }
+  .motion-architecture { padding: 64px 10px 6px; }
+  .motion-node-label { font-size: 15px; }
+  .motion-node-sub { font-size: 8.5px; }
+  .motion-pipeline ol { grid-template-columns: 1fr; gap: 22px; }
+  .motion-pipeline li { flex-direction: row; align-items: baseline; gap: 14px; padding-right: 0; }
+  .motion-pipeline strong { font-size: clamp(36px, 11vw, 50px); }
+  .motion-arrow { display: none; }
+  .motion-pipeline-rule { margin-top: 30px; }
+  .motion-signature h3 { font-size: clamp(42px, 13vw, 60px); }
+  .motion-scenes span:not(.is-active) { display: none; }
+  .motion-scenes { justify-content: flex-start; }
 }
+@media (prefers-reduced-motion: reduce) { .motion-replay { display: none; } }

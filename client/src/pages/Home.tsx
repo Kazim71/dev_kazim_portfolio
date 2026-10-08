@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
+import SystemsMotion from "@/components/SystemsMotion";
 import { ArrowDown, ArrowUpRight, Phone, X } from "lucide-react";
 import { DraggableCardBody, DraggableCardContainer } from "@/components/ui/draggable-card";
 import { CometCard } from "@/components/ui/comet-card";
@@ -233,11 +234,11 @@ const projects: Project[] = [
 ];
 
 const beats = [
-  { id: "hero", label: "01 / INTRO", title: "I build systems,\nnot just screens.", copy: "Mohammad Kazim — Software Engineer, Web & AI Solutions. Backend · SQL · APIs · Web · AI.", align: "left", video: "/videos/macro-alt.mp4" },
+  { id: "hero", label: "01 / INTRO", title: "I build systems,\nnot just screens.", copy: "Mohammad Kazim — Software Engineer, Web & AI Solutions. Backend · SQL · APIs · Web · AI.", align: "left" },
   { id: "about", label: "02 / ABOUT", title: "Make the\ninside work.", copy: "I work across backend systems, data, APIs, AI automation, web platforms and deployment — translating messy requirements into dependable releases.", align: "right" },
-  { id: "systems", label: "03 / SYSTEMS", title: "Every part\nhas a job.", copy: "The way I work is modular: understand the system, isolate the pressure point, then ship the smallest change that creates the biggest lift.", align: "left", video: "/videos/exploded-view.mp4" },
+  { id: "systems", label: "03 / SYSTEMS", title: "Every part\nhas a job.", copy: "The way I work is modular: understand the system, isolate the pressure point, then ship the smallest change that creates the biggest lift.", align: "left" },
   { id: "work", label: "04 / SELECTED WORK", title: "Web is the\nvisible layer.", copy: "The surface should be clear because the system underneath is considered. Explore selected work below.", align: "right" },
-  { id: "backend", label: "05 / BACKEND", title: "Backend\nwith intent.", copy: "Python · FastAPI · PostgreSQL · REST APIs · Docker · RabbitMQ · Redis. The infrastructure should feel as deliberate as the interface.", align: "left", video: "/videos/macro-continuous.mp4" },
+  { id: "backend", label: "05 / BACKEND", title: "Backend\nwith intent.", copy: "Python · FastAPI · PostgreSQL · REST APIs · Docker · RabbitMQ · Redis. The infrastructure should feel as deliberate as the interface.", align: "left" },
   { id: "ai", label: "06 / AI / AUTOMATION", title: "Automation\nthat earns trust.", copy: "LLMs · AI agents · n8n · RAG · API automation · prompt engineering. Not a glowing AI brain — useful intelligence, wired into real work.", align: "right" },
   { id: "experience", label: "07 / EXPERIENCE", title: "Built through\nproduction.", copy: "Two-plus years in production across 50+ websites, from client delivery to compromised-site recovery and CMS content automation.", align: "left" },
   { id: "back-cover", label: "08 / CLOSE", title: "One useful\nwhole.", copy: "A good system disappears into the work it makes possible. Scroll to the end, then let’s build something useful.", align: "right" },
@@ -259,13 +260,8 @@ export default function Home() {
       <section className="cinema" id="cinema-track">
         <div className="story-track">
           {beats.map((beat) => (
-            <article className={`story-beat story-${beat.align}${beat.id === "work" ? " story-wide" : ""}${beat.video ? " story-has-video" : ""}`} id={beat.id} key={beat.id}>
-              {beat.video && (
-                <div className="beat-video-layer" aria-hidden="true">
-                  <video src={beat.video} autoPlay muted loop playsInline preload="metadata" />
-                  <div className="beat-video-scrim" />
-                </div>
-              )}
+            <Fragment key={beat.id}>
+            <article className={`story-beat story-${beat.align}${beat.id === "work" ? " story-wide" : ""}`} id={beat.id}>
               <div className="story-copy">
                 <p className="story-label"><span>{beat.label}</span><i /></p>
                 <h1>{beat.title.split("\n").map((line, index) => <span key={line}>{line}{index === 0 ? <br /> : null}</span>)}</h1>
@@ -275,6 +271,8 @@ export default function Home() {
                 {beat.id === "experience" && <ExperienceTimeline />}
               </div>
             </article>
+            {beat.id === "hero" && <SystemsMotion />}
+            </Fragment>
           ))}
         </div>
       </section>
